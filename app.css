@@ -80,18 +80,47 @@ input[type="radio"]{
     -webkit-appearance: none;
 }
 
-label{
+.tool-label{
     width: 60px;
     height: 60px;
     background-color: var(--canvas);
     border: 3px solid var(--accent2);
     border-radius: 10px;
-    transition: 0.2s;
 }
 
 input[type="radio"]:checked + label{
     background-color: var(--bg);
     border: 3px solid var(--accent1);
+}
+
+.colour-picker{
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    margin-left: 5%;
+    margin-top: 1rem;
+}
+
+#colour-preview{
+    width: 100%;
+    border: 3px solid var(--accent2);
+    background-color: var(--canvas);
+    border-radius: 20px;
+    
+    padding: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label{
+    font-family: var(--main-font);
+    font-weight: bolder;
+    margin-left: 4rem;
+}
+
+input[type="range"]{
+    margin-top: 1rem;
 }
 
 
