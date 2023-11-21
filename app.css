@@ -31,13 +31,55 @@ p {
     text-align: center;
 }
 
+.parent {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.div1 {
+    grid-area: 1 / 1 / 5 / 8;
+}
+
+.div2 {
+    grid-area: 1 / 8 / 5 / 9;
+}
+
+.div3 {
+    grid-area: 5 / 1 / 6 / 9;
+}
+
 .main-canvas {
-    width: 90%;
+    width: 95%;
     border: 1px solid var(--accent2);
     background-color: var(--canvas);
+    border-radius: 20px;
 
     padding: 0;
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
+
+.tool-ribbon{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.tool{
+    background-color: var(--canvas);
+
+    width: 4rem;
+    height: 4rem;
+    border-radius: 10%;
+    margin: 0 0 auto;
+    margin-bottom: 0.5em;
+}
+
+.tool:focus{
+    background-color: var(--bg);
+}
+

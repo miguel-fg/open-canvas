@@ -1,4 +1,6 @@
 <?php
-    echo '<canvas class="main-canvas">';
-    echo '</canvas>';
+    function get_canvas(){
+        echo '<canvas class="main-canvas" id="main-canvas">';
+        echo '</canvas>';
+    }
 ?>
