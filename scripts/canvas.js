@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("main-canvas");
     const ctx = canvas.getContext("2d");
+    const clearBtn = document.getElementById("clear");
 
     let tool = null;
 
@@ -25,8 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
             tool = "eraser";
         } else if (document.getElementById("bucket").checked === true) {
             tool = "bucket";
-        } else if (document.getElementById("clear").checked === true) {
-            tool = "clear";
         }
     }
 
@@ -76,4 +75,5 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.addEventListener("mousedown", (e) => startDrawing(e));
     canvas.addEventListener("mouseup", (e) => endDrawing(e));
     canvas.addEventListener("mouseout", (e) => endDrawing(e));
+    clearBtn.addEventListener("click", (e) => paintCanvas("#F5F5F5"));
 });
