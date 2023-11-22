@@ -24,6 +24,7 @@ include "./templates/colourPicker.php";
         </button>
         <a href="index.php" class="nav-link">Home</a>
         <a href="#" onclick="return false;" class="nav-link">New Drawing</a>
+        <a href="documentation.html" class="nav-link">Documentation</a>
     </div>
     <div class="content">
         <button class="openbtn" onclick="openNav()">
