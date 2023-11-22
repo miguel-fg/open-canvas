@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let tool = null;
 
+    const colourPreview = document.getElementById("colour-preview");
+    const cpCtx = colourPreview.getContext("2d");
+    const sliders = document.getElementsByClassName("slider");
+    const rgba = {red: 0, green: 0, blue: 0, alpha: 1};
+    let currColour = `rgba(${rgba["red"]}, ${rgba["green"]}, ${rgba["blue"]}, ${rgba["alpha"]})`;
+    updateCPreview(currColour);
+
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
 
@@ -17,6 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function paintCanvas(colour){
         ctx.fillStyle = colour;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function updateCPreview(colour){
+        cpCtx.fillStyle = colour;
+        cpCtx.fillRect(0,0, colourPreview.width, colourPreview.height);
     }
 
     function getTool() {
@@ -34,13 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
         getTool();
 
         if (tool === "brush") {
-            setColour("blue");
+            setColour(currColour);
         } else if (tool === "eraser") {
             setColour("#F5F5F5");
         } else if (tool === "bucket"){
-            paintCanvas("blue");
-        } else if (tool === "clear"){
-            paintCanvas("#F5F5F5");
+            setColour(currColour);
+            paintCanvas(currColour);
         }
 
         ctx.beginPath();
@@ -76,4 +87,12 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.addEventListener("mouseup", (e) => endDrawing(e));
     canvas.addEventListener("mouseout", (e) => endDrawing(e));
     clearBtn.addEventListener("click", (e) => paintCanvas("#F5F5F5"));
+
+    Array.from(sliders).forEach((slider) => {
+        slider.addEventListener("input", (e) => {
+            rgba[slider.id] = Number(e.target.value);
+            currColour = `rgba(${rgba["red"]}, ${rgba["green"]}, ${rgba["blue"]}, ${rgba["alpha"]})`;
+            updateCPreview(currColour);
+        })
+    })
 });
