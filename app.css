@@ -5,8 +5,9 @@
     --sub-font: 'Josefin Slab';
 
     --bg: #D5C6E0;
+    --nav: #B1EDE8;
     --accent1: #7465A4;
-    --accent2: #83668F;
+    --accent2: #DB5461;
     --text: #192A51;
     --canvas: #F5F5F5;
 }
@@ -31,6 +32,54 @@ p {
     text-align: center;
 }
 
+.sidebar{
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: var(--nav);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.nav-link {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-family: var(--main-font);
+    font-size: x-large;
+    color: var(--text);
+    display: block;
+    transition: 0.3s;
+}
+
+.closebtn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: var(--text);
+    border: none;
+    background-color: var(--nav);
+    cursor: pointer;
+}
+
+.nav-link:hover, .closebtn:hover{
+    color: var(--accent2);
+}
+
+.openbtn {
+    display: inline;
+    cursor: pointer;
+    color: var(--text);
+    padding: 10px 15px;
+    border: none;
+    background-color: var(--bg);
+}
+
 .parent {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -53,7 +102,7 @@ p {
 
 .main-canvas {
     width: 95%;
-    border: 3px solid var(--accent2);
+    border: 3px solid var(--accent1);
     background-color: var(--canvas);
     border-radius: 20px;
 
@@ -84,13 +133,13 @@ input[type="radio"]{
     width: 60px;
     height: 60px;
     background-color: var(--canvas);
-    border: 3px solid var(--accent2);
+    border: 3px solid var(--accent1);
     border-radius: 10px;
 }
 
 input[type="radio"]:checked + label{
     background-color: var(--bg);
-    border: 3px solid var(--accent1);
+    border: 3px solid var(--accent2);
 }
 
 .colour-picker{
@@ -103,7 +152,7 @@ input[type="radio"]:checked + label{
 
 #colour-preview{
     width: 100%;
-    border: 3px solid var(--accent2);
+    border: 3px solid var(--accent1);
     background-color: var(--canvas);
     border-radius: 20px;
     
