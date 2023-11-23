@@ -37,6 +37,13 @@ include "./templates/colourPicker.php";
             </div>
             <div class="div2">
                 <?php get_tool_ribbon() ?>
+                <form>
+                    <label for="title">Title</label>
+                    <input type="text" id="title">
+                    <label for="description">Description (optional)</label>
+                    <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                    <button type="submit">Save</button>
+                </form>
             </div>
             <div class="div3">
                 <?php get_colour_picker() ?>

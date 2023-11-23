@@ -4,11 +4,12 @@
     --main-font: 'Josefin Sans';
     --sub-font: 'Josefin Slab';
 
-    --bg: #D5C6E0;
-    --nav: #B1EDE8;
-    --accent1: #7465A4;
-    --accent2: #DB5461;
-    --text: #192A51;
+    --bg: #DBCFB0;
+    --nav: #BFC8AD;
+    --accent1: #90B494;
+    --accent2: #718F94;
+    --text: #47485C;
+    --subtext: #545775;
     --canvas: #F5F5F5;
 }
 
@@ -27,7 +28,7 @@ p {
     font-family: var(--sub-font);
     font-size: larger;
     font-weight: bolder;
-    color: var(--accent1);
+    color: var(--subtext);
 
     text-align: center;
 }
@@ -102,7 +103,7 @@ p {
 
 .main-canvas {
     width: 95%;
-    border: 3px solid var(--accent1);
+    border: 2px solid var(--accent2);
     background-color: var(--canvas);
     border-radius: 20px;
 
@@ -114,7 +115,7 @@ p {
 
 .tool-ribbon{
     display: flex;
-    justify-content: center;
+    justify-content: left;
     flex-direction: column;
 }
 
@@ -133,13 +134,13 @@ input[type="radio"]{
     width: 60px;
     height: 60px;
     background-color: var(--canvas);
-    border: 3px solid var(--accent1);
+    border: 2px solid var(--accent2);
     border-radius: 10px;
 }
 
 input[type="radio"]:checked + label{
     background-color: var(--bg);
-    border: 3px solid var(--accent2);
+    border: 2px solid var(--accent1);
 }
 
 .colour-picker{
@@ -152,8 +153,7 @@ input[type="radio"]:checked + label{
 
 #colour-preview{
     width: 100%;
-    border: 3px solid var(--accent1);
-    background-color: var(--canvas);
+    border: 2px solid var(--accent2);
     border-radius: 20px;
     
     padding: 0;
