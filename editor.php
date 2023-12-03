@@ -27,6 +27,23 @@ include "./templates/colourPicker.php";
         <a href="documentation.html" class="nav-link">Documentation</a>
     </div>
     <div class="content">
+        <div class="modal" id="save-modal">
+            <div class="save-form">
+                <button class="closeModalbtn" onclick="closeModal()">
+                    <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" style="width: 35px;" />
+                </button>
+                <div class="form-content">
+                    <h2>Save Drawing</h2>
+                    <form action="" method="post">
+                        <label for="title">Title: </label><br>
+                        <input type="text" name="title" id="title"><br>
+                        <label for="description">Description: </label><br>
+                        <textarea></textarea><br>
+                        <button type="submit" class="submitbtn">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
         <button class="openbtn" onclick="openNav()">
             <img src="./icons/burger-menu-svgrepo-com.svg" class="tool-icon" style="width: 30px;" />
         </button>
@@ -37,20 +54,13 @@ include "./templates/colourPicker.php";
             </div>
             <div class="div2">
                 <?php get_tool_ribbon() ?>
-                <form>
-                    <label for="title">Title</label>
-                    <input type="text" id="title">
-                    <label for="description">Description (optional)</label>
-                    <textarea name="description" id="description" cols="30" rows="10"></textarea>
-                    <button type="submit">Save</button>
-                </form>
-            </div>
-            <div class="div3">
-                <?php get_colour_picker() ?>
+                <button class="save-btn" onclick="openModal()">Save</button>
             </div>
         </div>
     </div>
     <script>
+        let modal = document.querySelector("#save-modal");
+
         function openNav() {
             document.querySelector("#sidebar").style.width = "250px";
         }
@@ -58,10 +68,21 @@ include "./templates/colourPicker.php";
         function hideNav() {
             document.querySelector("#sidebar").style.width = "0";
         }
+
+        function openModal() {
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = (e) => {
+            if(e.target == modal){
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 
 </html>
-<!-- 
-        <p>Your Free Space for Art</p>
--->

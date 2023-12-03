@@ -4,6 +4,7 @@ include "./templates/icons.php";
 function get_tool_ribbon()
 {
     echo '<div class="tool-ribbon">';
+    get_colour_picker();
     echo '<input type="radio" class="tool" name="selected-tool" id="brush">';
     echo '<label for="brush" class="tool-label">' . get_brush_icon() . '</label>';
     echo '<input type="radio" class="tool" name="selected-tool" id="eraser">';
