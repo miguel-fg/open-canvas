@@ -15,6 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             case "submit_drawing":
                 submit_drawing();
                 break;
+            case "delete_drawing":
+                delete_drawing();
+                break;
             default:
                 echo json_encode(['success' => false, 'message' => 'Invalid action']);
         }
@@ -90,4 +93,46 @@ function get_drawings()
     }
 
     return $galleryData;
+}
+
+function delete_drawing(){
+    global $pdo;
+
+    if(isset($_POST["projId"])){
+        $projId = $_POST["projId"];
+
+        //delete image file from server
+        $sql = 'SELECT path FROM drawings WHERE id = :id';
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $projId);
+        if ($stmt->execute()) {
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $projPath = $result["path"];
+
+            if(file_exists($projPath)){
+                if(unlink($projPath)){
+                    echo json_encode(['success' => true, 'message' => 'Deleted file from server!']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Error deleting from server: ' . $stmt->errorInfo()[2]]);
+                }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'File does not exist: ' . $stmt->errorInfo()[2]]);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error deleting from server: ' . $stmt->errorInfo()[2]]);
+        }
+
+        //delete item from database
+        $sql = 'DELETE FROM drawings WHERE id = :id';
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $projId);
+
+        if ($stmt->execute()) {
+            echo json_encode(['success' => true, 'message' => 'Deleted item from database!']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error deleting from database: ' . $stmt->errorInfo()[2]]);
+        }
+    }
 }

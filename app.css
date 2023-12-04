@@ -371,7 +371,7 @@ textarea{
     margin-right: auto;
 }
 
-#toast{
+#toast, #deleteToast{
     visibility: hidden;
     min-width: 250px;
     height: 50px;
@@ -391,6 +391,11 @@ textarea{
 }
 
 #toast.show{
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#deleteToast.show{
     visibility: visible;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }

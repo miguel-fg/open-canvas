@@ -35,6 +35,7 @@ include "./templates/galleryCards.php";
             </div>
             <?php get_cards(); ?>
         </div>
+        <div class="toast" id="deleteToast">Project deleted!</div>
     </div>
 
     <script>
@@ -44,6 +45,41 @@ include "./templates/galleryCards.php";
 
         function hideNav() {
             document.querySelector("#sidebar").style.width = "0";
+        }
+
+        function editProject(projectId) {
+            console.log("I want to edit this project: ", projectId);
+        }
+
+        function sendToast() {
+            const toast = document.querySelector("#deleteToast");
+
+            toast.className = "show";
+
+            setTimeout(function() {
+                toast.className = toast.className.replace("show", "");
+            }, 3000);
+        }
+
+        function deleteProject(projectId) {
+            const formData = new FormData();
+            formData.append("projId", projectId);
+            formData.append("action", "delete_drawing");
+
+            fetch("./database/database.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(body => {
+                    console.log(body);
+                })
+
+            sendToast();
+
+            setTimeout(function() {
+                location.reload();
+            }, 2000);
         }
     </script>
 </body>
