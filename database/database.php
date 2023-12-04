@@ -81,7 +81,7 @@ function get_drawings()
 {
     global $pdo;
 
-    $sql = 'SELECT title, description, path FROM drawings';
+    $sql = 'SELECT * FROM drawings';
     $stmt = $pdo->query($sql);
 
     $galleryData = [];

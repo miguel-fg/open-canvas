@@ -104,6 +104,7 @@ p {
     border-radius: 20px;
     overflow: hidden;
     margin: 1rem;
+    position: relative;
 }
 
 .gallery-card a{
@@ -129,6 +130,24 @@ p {
     color: var(--subtext);
     font-weight: bolder;
     margin-left: 10px;
+}
+
+.gallery-card button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#edit-btn{
+    position: absolute;
+    bottom: 60px;
+    right: 10px;
+}
+
+#delete-btn{
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
 }
 
 /************** EDITOR PAGE STYLES ***************/
