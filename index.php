@@ -1,3 +1,9 @@
+<?php
+    include "./database/database.php";
+
+    db_connect();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

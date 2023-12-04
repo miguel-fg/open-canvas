@@ -3,7 +3,9 @@
 include "./templates/canvas.php";
 include "./templates/tools.php";
 include "./templates/colourPicker.php";
+include "./database/database.php";
 
+db_connect();
 ?>
 
 <!DOCTYPE html>
@@ -34,11 +36,11 @@ include "./templates/colourPicker.php";
                 </button>
                 <div class="form-content">
                     <h2>Save Drawing</h2>
-                    <form action="" method="post">
+                    <form id="submit-form" method="post">
                         <label for="title">Title: </label><br>
                         <input type="text" name="title" id="title"><br>
                         <label for="description">Description: </label><br>
-                        <textarea></textarea><br>
+                        <textarea name="description" id="description"></textarea><br>
                         <button type="submit" class="submitbtn">Submit</button>
                     </form>
                 </div>
@@ -59,7 +61,8 @@ include "./templates/colourPicker.php";
         </div>
     </div>
     <script>
-        let modal = document.querySelector("#save-modal");
+        const modal = document.querySelector("#save-modal");
+        const form = document.querySelector("#submit-form");
 
         function openNav() {
             document.querySelector("#sidebar").style.width = "250px";
@@ -78,9 +81,36 @@ include "./templates/colourPicker.php";
         }
 
         window.onclick = (e) => {
-            if(e.target == modal){
+            if (e.target == modal) {
                 modal.style.display = "none";
             }
+        }
+
+        form.onsubmit = (e) => {
+            e.preventDefault();
+
+            const canvas = document.querySelector("#main-canvas");
+            const imgURL = canvas.toDataURL();
+
+            const title = document.querySelector("#title").value;
+            const description = document.querySelector("#description").value;
+
+            const formData = new FormData();
+            formData.append("title", title);
+            formData.append("description", description);
+            formData.append("imgURL", imgURL);
+            formData.append("action", "submit_drawing");
+
+            // send POST request with image data
+            fetch("./database/database.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(body => {
+                    console.log(body);
+                })
+
         }
     </script>
 </body>
