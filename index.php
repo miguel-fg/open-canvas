@@ -61,6 +61,10 @@ include "./templates/galleryCards.php";
             }, 3000);
         }
 
+        function editProject(projectId){
+            window.location.href = 'editor.php?id=' + projectId;
+        }
+
         function deleteProject(projectId) {
             const formData = new FormData();
             formData.append("projId", projectId);

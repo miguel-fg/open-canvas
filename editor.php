@@ -5,6 +5,7 @@ include "./templates/tools.php";
 include "./templates/colourPicker.php";
 include "./database/database.php";
 
+$projectId = isset($_GET["id"]) ? $_GET["id"] : null;
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +52,7 @@ include "./database/database.php";
         <h1>Open Canvas</h1>
         <div class="parent">
             <div class="div1">
-                <?php get_canvas() ?>
+                <?php get_canvas($projectId) ?>
             </div>
             <div class="div2">
                 <?php get_tool_ribbon() ?>
@@ -63,6 +64,7 @@ include "./database/database.php";
     <script>
         const modal = document.querySelector("#save-modal");
         const form = document.querySelector("#submit-form");
+        const projectId = <?php echo json_encode($projectId); ?>
 
         function openNav() {
             document.querySelector("#sidebar").style.width = "250px";
@@ -80,12 +82,14 @@ include "./database/database.php";
             modal.style.display = "none";
         }
 
-        function sendToast(){
+        function sendToast() {
             const toast = document.querySelector("#toast");
 
             toast.className = "show";
 
-            setTimeout(function(){toast.className = toast.className.replace("show", "");}, 3000);
+            setTimeout(function() {
+                toast.className = toast.className.replace("show", "");
+            }, 3000);
         }
 
         window.onclick = (e) => {
@@ -107,7 +111,13 @@ include "./database/database.php";
             formData.append("title", title);
             formData.append("description", description);
             formData.append("imgURL", imgURL);
-            formData.append("action", "submit_drawing");
+
+            if(projectId !== null){
+                formData.append("id", projectId);
+                formData.append("action", "update_drawing");
+            } else {
+                formData.append("action", "submit_drawing");
+            }
 
             // send POST request with image data
             fetch("./database/database.php", {
@@ -118,7 +128,7 @@ include "./database/database.php";
                 .then(body => {
                     console.log(body);
                 });
-            
+
             sendToast();
             closeModal();
         }

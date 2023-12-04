@@ -18,6 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             case "delete_drawing":
                 delete_drawing();
                 break;
+            case "update_drawing":
+                update_drawing();
+                break;
             default:
                 echo json_encode(['success' => false, 'message' => 'Invalid action']);
         }
@@ -95,32 +98,44 @@ function get_drawings()
     return $galleryData;
 }
 
-function delete_drawing(){
+function get_image_path($projectId)
+{
     global $pdo;
 
-    if(isset($_POST["projId"])){
+    $sql = 'SELECT path FROM drawings WHERE id = :id';
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->bindValue(':id', $projectId);
+    if ($stmt->execute()) {
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $projectPath = $result["path"];
+
+        return $projectPath;
+    }
+}
+
+function delete_drawing()
+{
+    global $pdo;
+
+    if (isset($_POST["projId"])) {
         $projId = $_POST["projId"];
 
         //delete image file from server
-        $sql = 'SELECT path FROM drawings WHERE id = :id';
-        $stmt = $pdo->prepare($sql);
 
-        $stmt->bindValue(':id', $projId);
-        if ($stmt->execute()) {
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            $projPath = $result["path"];
-
-            if(file_exists($projPath)){
-                if(unlink($projPath)){
+        $projPath = get_image_path($projId);
+        if ($projPath) {
+            if (file_exists($projPath)) {
+                if (unlink($projPath)) {
                     echo json_encode(['success' => true, 'message' => 'Deleted file from server!']);
                 } else {
-                    echo json_encode(['success' => false, 'message' => 'Error deleting from server: ' . $stmt->errorInfo()[2]]);
+                    echo json_encode(['success' => false, 'message' => 'Error deleting from server: ']);
                 }
             } else {
-                echo json_encode(['success' => false, 'message' => 'File does not exist: ' . $stmt->errorInfo()[2]]);
+                echo json_encode(['success' => false, 'message' => 'File does not exist: ']);
             }
         } else {
-            echo json_encode(['success' => false, 'message' => 'Error deleting from server: ' . $stmt->errorInfo()[2]]);
+            echo json_encode(['success' => false, 'message' => 'Error deleting from server: ']);
         }
 
         //delete item from database
@@ -134,5 +149,46 @@ function delete_drawing(){
         } else {
             echo json_encode(['success' => false, 'message' => 'Error deleting from database: ' . $stmt->errorInfo()[2]]);
         }
+    }
+}
+
+function update_drawing()
+{
+    global $pdo;
+
+    if (isset($_POST["id"]) && isset($_POST["title"]) && isset($_POST["description"])) {
+        $projectId = $_POST["id"];
+        $title = $_POST["title"];
+        $description = $_POST["description"];
+        $imgDataURL = $_POST["imgURL"];
+
+        // delete current image file from server
+        $currentImg = get_image_path($projectId);
+        unlink($currentImg);
+
+        //generate new image and save to server
+        $imgData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imgDataURL));
+        $filename = generate_img_filename();
+        $filepath = "./uploads/" . $filename;
+
+        file_put_contents($filepath, $imgData);
+
+        // update data in DB
+        $sql = 'UPDATE drawings SET title = :title, description = :description, path = :path WHERE id = :id';
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':id', $projectId);
+        $stmt->bindValue(':title', $title);
+        $stmt->bindValue(':description', $description);
+        $stmt->bindValue(':path', $filepath);
+
+        if ($stmt->execute()) {
+            echo json_encode(['success' => true, 'filePath' => $filepath]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error updating database: ' . $stmt->errorInfo()[2]]);
+        }
+    } else {
+        echo
+        json_encode(['success' => false, 'message' => 'Missing title, description, or image data.']);
     }
 }

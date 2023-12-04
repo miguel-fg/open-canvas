@@ -2,13 +2,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("main-canvas");
     const ctx = canvas.getContext("2d");
     const clearBtn = document.getElementById("clear");
-
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get("id");
+    console.log("Editing project with ID: ", projectId);
     let tool = null;
 
     const colourPreview = document.getElementById("colour-preview");
     const cpCtx = colourPreview.getContext("2d");
     const sliders = document.getElementsByClassName("slider");
-    const rgba = {red: 0, green: 0, blue: 0, alpha: 1};
+    const rgba = { red: 0, green: 0, blue: 0, alpha: 1 };
     let currColour = `rgba(${rgba["red"]}, ${rgba["green"]}, ${rgba["blue"]}, ${rgba["alpha"]})`;
     updateCPreview(currColour);
 
@@ -21,14 +23,14 @@ document.addEventListener("DOMContentLoaded", function () {
         ctx.strokeStyle = colour;
     }
 
-    function paintCanvas(colour){
+    function paintCanvas(colour) {
         ctx.fillStyle = colour;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    function updateCPreview(colour){
+    function updateCPreview(colour) {
         cpCtx.fillStyle = colour;
-        cpCtx.fillRect(0,0, colourPreview.width, colourPreview.height);
+        cpCtx.fillRect(0, 0, colourPreview.width, colourPreview.height);
     }
 
     function getTool() {
@@ -49,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setColour(currColour);
         } else if (tool === "eraser") {
             setColour("#F5F5F5");
-        } else if (tool === "bucket"){
+        } else if (tool === "bucket") {
             setColour(currColour);
             paintCanvas(currColour);
         }
@@ -82,6 +84,17 @@ document.addEventListener("DOMContentLoaded", function () {
         ctx.stroke();
     }
 
+    if (projectId) {
+        const bgImage = getComputedStyle(canvas).backgroundImage;
+
+        const previousWork = new Image();
+        previousWork.src = bgImage.slice(4, -1).replace(/"/g, "");
+
+        previousWork.onload = () => {
+            ctx.drawImage(previousWork, 0, 0, canvas.width, canvas.height);
+        };
+    }
+
     canvas.addEventListener("mousemove", (e) => draw(e));
     canvas.addEventListener("mousedown", (e) => startDrawing(e));
     canvas.addEventListener("mouseup", (e) => endDrawing(e));
@@ -93,6 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
             rgba[slider.id] = Number(e.target.value);
             currColour = `rgba(${rgba["red"]}, ${rgba["green"]}, ${rgba["blue"]}, ${rgba["alpha"]})`;
             updateCPreview(currColour);
-        })
-    })
+        });
+    });
 });
