@@ -12,6 +12,6 @@
     }
 
     function get_clear_icon(){
-        return '<img src="./icons/clear-svgrepo-com.svg" class="tool-icon" style="width: 50px;"/>';
+        return '<img src="./icons/clear-svgrepo-com.svg" class="tool-icon" style="width: 50px; margin-left: 2px; margin-top: 3px;"/>';
     }
 ?>

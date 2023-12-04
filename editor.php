@@ -5,7 +5,6 @@ include "./templates/tools.php";
 include "./templates/colourPicker.php";
 include "./database/database.php";
 
-db_connect();
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +24,7 @@ db_connect();
             <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" style="width: 35px;" />
         </button>
         <a href="index.php" class="nav-link">Home</a>
-        <a href="#" onclick="return false;" class="nav-link">New Drawing</a>
+        <a href="#" onclick="return false;" class="nav-link">New Project</a>
         <a href="documentation.html" class="nav-link">Documentation</a>
     </div>
     <div class="content">
@@ -35,12 +34,12 @@ db_connect();
                     <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" style="width: 35px;" />
                 </button>
                 <div class="form-content">
-                    <h2>Save Drawing</h2>
+                    <h2>Save Project</h2>
                     <form id="submit-form" method="post">
                         <label for="title">Title: </label><br>
                         <input type="text" name="title" id="title"><br>
                         <label for="description">Description: </label><br>
-                        <textarea name="description" id="description"></textarea><br>
+                        <textarea name="description" id="description" rows="4"></textarea><br>
                         <button type="submit" class="submitbtn">Submit</button>
                     </form>
                 </div>
@@ -59,6 +58,7 @@ db_connect();
                 <button class="save-btn" onclick="openModal()">Save</button>
             </div>
         </div>
+        <div class="toast" id="toast">Project saved!</div>
     </div>
     <script>
         const modal = document.querySelector("#save-modal");
@@ -78,6 +78,14 @@ db_connect();
 
         function closeModal() {
             modal.style.display = "none";
+        }
+
+        function sendToast(){
+            const toast = document.querySelector("#toast");
+
+            toast.className = "show";
+
+            setTimeout(function(){toast.className = toast.className.replace("show", "");}, 3000);
         }
 
         window.onclick = (e) => {
@@ -109,8 +117,10 @@ db_connect();
                 .then(response => response.text())
                 .then(body => {
                     console.log(body);
-                })
-
+                });
+            
+            sendToast();
+            closeModal();
         }
     </script>
 </body>

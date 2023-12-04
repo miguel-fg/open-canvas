@@ -5,6 +5,7 @@ define('DBNAME', 'opencanvas');
 define('DBUSER', 'root');
 define('DBPASS', '');
 
+$pdo = db_connect();
 // function router
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["action"])) {
@@ -20,32 +21,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-    function db_connect()
-    {
-        $server = constant("DBHOST");
-        $user = constant("DBUSER");
-        $pw = constant("DBPASS");
-        $name = constant("DBNAME");
-        
-        try {
-            $pdo = new PDO("mysql:host=$server;dbname=$name", $user, $pw);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $pdo;
-        } catch (PDOException $err) {
-            die($err->getMessage());
-        }
-    }
+function db_connect()
+{
+    $server = constant("DBHOST");
+    $user = constant("DBUSER");
+    $pw = constant("DBPASS");
+    $name = constant("DBNAME");
 
-    function generate_img_filename($extension = "png")
-    {
-        return 'oc_' . uniqid() . '.' . $extension;
+    try {
+        $pdo = new PDO("mysql:host=$server;dbname=$name", $user, $pw);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $pdo;
+    } catch (PDOException $err) {
+        die($err->getMessage());
     }
+}
 
-    function submit_drawing()
-    {
-        $pdo = db_connect();
-        
-        if (isset($_POST["title"]) && isset($_POST["description"])) {
+function generate_img_filename($extension = "png")
+{
+    return 'oc_' . uniqid() . '.' . $extension;
+}
+
+function submit_drawing()
+{
+    global $pdo;
+
+    if (isset($_POST["title"]) && isset($_POST["description"])) {
         $title = $_POST["title"];
         $description = $_POST["description"];
         $imgDataURL = $_POST["imgURL"];
@@ -74,4 +75,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo
         json_encode(['success' => false, 'message' => 'Missing title, description, or image data.']);
     }
+}
+
+function get_drawings()
+{
+    global $pdo;
+
+    $sql = 'SELECT title, description, path FROM drawings';
+    $stmt = $pdo->query($sql);
+
+    $galleryData = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $galleryData[] = $row;
+    }
+
+    return $galleryData;
 }

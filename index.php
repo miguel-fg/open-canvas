@@ -1,7 +1,7 @@
 <?php
-    include "./database/database.php";
+include "./database/database.php";
+include "./templates/galleryCards.php";
 
-    db_connect();
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
             <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" style="width: 35px;" />
         </button>
         <a href="#" onclick="return false;" class="nav-link">Home</a>
-        <a href="editor.php" class="nav-link">New Drawing</a>
+        <a href="editor.php" class="nav-link">New Project</a>
         <a href="documentation.html" class="nav-link">Documentation</a>
     </div>
     <div class="content">
@@ -29,6 +29,12 @@
         </button>
         <h1>Open Canvas</h1>
         <p>Your Free Space for Art</p>
+        <div class="gallery-container">
+            <div class="gallery-card">
+                <a href="editor.php">New Project</a>
+            </div>
+            <?php get_cards(); ?>
+        </div>
     </div>
 
     <script>

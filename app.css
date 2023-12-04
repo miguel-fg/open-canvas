@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Josefin+Slab&display=swap');
 
+/************** CONSTANTS ***************/
+
 :root {
     --main-font: 'Josefin Sans';
     --sub-font: 'Josefin Slab';
@@ -12,6 +14,8 @@
     --subtext: #545775;
     --canvas: #F5F5F5;
 }
+
+/************** UNIVERSAL STYLES ***************/
 
 body {
     background-color: var(--bg);
@@ -44,6 +48,7 @@ p {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    border-right: 2px solid var(--accent2);
 }
 
 .nav-link {
@@ -81,6 +86,52 @@ p {
     background-color: var(--bg);
 }
 
+/************** GALLERY PAGE STYLES ***************/
+
+.gallery-container{
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.gallery-card{
+    width: 400px;
+    height: 300px;
+    background-color: var(--nav);
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 1rem;
+}
+
+.gallery-card a{
+    text-decoration: none;
+    font-family: var(--main-font);
+    font-size: xx-large;
+    color: var(--text);
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 300px;
+}
+
+.gallery-card h3{
+    font-family: var(--main-font);
+    color: var(--text);
+    margin-left: 10px;
+}
+
+.gallery-card span{
+    font-family: var(--sub-font);
+    color: var(--subtext);
+    font-weight: bolder;
+    margin-left: 10px;
+}
+
+/************** EDITOR PAGE STYLES ***************/
 .parent {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -135,8 +186,14 @@ input[type="radio"]{
 }
 
 input[type="radio"]:checked + label{
-    background-color: var(--bg);
+    background-color: var(--accent2);
     border: 2px solid var(--accent1);
+
+}
+input[type="radio"]:hover + label{
+    background-color: var(--nav);
+    border: 2px solid var(--accent1);
+    cursor: pointer;
 }
 
 .colour-picker{
@@ -159,13 +216,28 @@ input[type="radio"]:checked + label{
 
 label{
     font-family: var(--main-font);
+    color: var(--text);
     font-weight: bolder;
     margin-left: 0px;
+}
+
+label[for="red"]{
+    color: red;
+
+}
+label[for="green"]{
+    color: green;
+}
+
+label[for="blue"]{
+    color: blue;
 }
 
 input[type="range"]{
     margin-top: 1rem;
 }
+
+
 
 .save-btn {
     background-color: var(--accent2);
@@ -177,6 +249,17 @@ input[type="range"]{
     margin-top: 1rem;
     padding: 0.5rem;
     cursor: pointer;
+}
+
+.save-btn:hover{
+    background-color: var(--accent1);
+    border: 1px solid var(--accent2);
+}
+
+.save-btn:active{
+    background-color: var(--bg);
+    border: 1px solid var(--accent2);
+    color: var(--text);
 }
 
 .modal{
@@ -193,6 +276,7 @@ input[type="range"]{
 }
 
 .save-form{
+    position: relative;
     background-color: var(--nav);
     margin: auto;
     padding: 2rem;
@@ -202,11 +286,11 @@ input[type="range"]{
 }
 
 .closeModalbtn{
-    position: fixed;
+    position: absolute;
     background-color: var(--nav);
     border: none;
-    top: 1;
-    left: 1;
+    top: 10px;
+    right: 10px;
     cursor: pointer;
 }
 
@@ -235,6 +319,10 @@ form input, textarea{
     line-height: 150%;
 }
 
+textarea{
+    resize: vertical;
+}
+
 .submitbtn{
     font-family: var(--main-font);
     font-size: larger;
@@ -243,12 +331,59 @@ form input, textarea{
     color: var(--canvas);
     padding: 0.5rem;
     border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.submitbtn:hover{
+    background-color: var(--accent1);
+    border: 1px solid var(--accent2);
+}
+
+.submitbtn:active{
+    background-color: var(--nav);
+    border: 1px solid var(--accent1);
+    color: var(--text);
 }
 
 .form-content{
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+}
+
+#toast{
+    visibility: hidden;
+    min-width: 250px;
+    height: 50px;
+    margin-left: -125px;
+    background-color: var(--accent2);
+    color: var(--canvas);
+    font-family: var(--sub-font);
+    font-size: xx-large;
+    line-height: 50px;
+    font-weight: bolder;
+    text-align: center;
+    border-radius: 15px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 50px;
+}
+
+#toast.show{
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+    from { bottom: 0; opacity: 0; }
+    to { bottom: 50px; opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { bottom: 50px; opacity: 1;}
+    to { bottom: 0; opacity: 0;}
 }
 
 
