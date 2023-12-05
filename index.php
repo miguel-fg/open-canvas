@@ -24,6 +24,14 @@ include "./templates/galleryCards.php";
         <a href="documentation.html" class="nav-link">Documentation</a>
     </div>
     <div class="content">
+        <div class="modal" id="confirm-modal">
+            <div class="confirm-content">
+                <h2>Warning</h2>
+                <p>Are you sure you want to delete this project?</p>
+                <button onclick="deleteConfirmed()">Confirm</button>
+                <button onclick="cancelDelete()">Cancel</button>
+            </div>
+        </div>
         <button class="openbtn" onclick="openNav()">
             <img src="./icons/burger-menu-svgrepo-com.svg" class="tool-icon" style="width: 30px;" />
         </button>
@@ -57,11 +65,26 @@ include "./templates/galleryCards.php";
             }, 3000);
         }
 
-        function editProject(projectId){
+        function editProject(projectId) {
             window.location.href = 'editor.php?id=' + projectId;
         }
 
         function deleteProject(projectId) {
+            const modal = document.querySelector("#confirm-modal");
+            modal.style.display = "block"
+
+            modal.setAttribute("card-project-id", projectId);
+        }
+
+        function cancelDelete() {
+            document.querySelector("#confirm-modal").style.display = "none";
+        }
+
+        function deleteConfirmed() {
+            document.querySelector("#confirm-modal").style.display = "none";
+
+            const projectId = document.querySelector("#confirm-modal").getAttribute("card-project-id");
+
             const formData = new FormData();
             formData.append("projId", projectId);
             formData.append("action", "delete_drawing");
