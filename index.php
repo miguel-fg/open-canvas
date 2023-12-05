@@ -28,8 +28,10 @@ include "./templates/galleryCards.php";
             <div class="confirm-content">
                 <h2>Warning</h2>
                 <p>Are you sure you want to delete this project?</p>
-                <button onclick="deleteConfirmed()">Confirm</button>
-                <button onclick="cancelDelete()">Cancel</button>
+                <div class="confirm-btns">
+                    <button class="confirm-btn" id="confirm" onclick="deleteConfirmed()">Confirm</button>
+                    <button class="confirm-btn" id="cancel" onclick="cancelDelete()">Cancel</button>
+                </div>
             </div>
         </div>
         <button class="openbtn" onclick="openNav()">
