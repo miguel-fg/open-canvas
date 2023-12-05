@@ -39,8 +39,10 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
                     <form id="submit-form" method="post">
                         <label for="title">Title: </label><br>
                         <input type="text" name="title" id="title"><br>
+                        <span class="error-msg" id="title-error"></span><br>
                         <label for="description">Description: </label><br>
                         <textarea name="description" id="description" rows="4"></textarea><br>
+                        <span class="error-msg" id="description-error"></span><br>
                         <button type="submit" class="submitbtn">Submit</button>
                     </form>
                 </div>
@@ -80,6 +82,7 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
 
         function closeModal() {
             modal.style.display = "none";
+            clearErrorMessages();
         }
 
         function sendToast() {
@@ -112,7 +115,7 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
             formData.append("description", description);
             formData.append("imgURL", imgURL);
 
-            if(projectId !== null){
+            if (projectId !== null) {
                 formData.append("id", projectId);
                 formData.append("action", "update_drawing");
             } else {
@@ -124,13 +127,34 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
                     method: "POST",
                     body: formData
                 })
-                .then(response => response.text())
-                .then(body => {
-                    console.log(body);
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.success) {
+                        // successful backend validation
+                        sendToast();
+                        closeModal();
+                    } else {
+                        // failed backend validation
+                        clearErrorMessages();
+                        displayErrorMessages(data.messages);
+                    }
                 });
+        }
 
-            sendToast();
-            closeModal();
+        function clearErrorMessages() {
+            document.querySelector("#title-error").innerHTML = "";
+            document.querySelector("#description-error").innerHTML = "";
+        }
+
+        function displayErrorMessages(messages) {
+            if (messages.title) {
+                document.querySelector("#title-error").innerHTML = messages.title;
+            }
+
+            if (messages.description) {
+                document.querySelector("#description-error").innerHTML = messages.description;
+            }
         }
     </script>
 </body>

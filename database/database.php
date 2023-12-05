@@ -6,6 +6,7 @@ define('DBUSER', 'root');
 define('DBPASS', '');
 
 $pdo = db_connect();
+
 // function router
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["action"])) {
@@ -48,6 +49,21 @@ function generate_img_filename($extension = "png")
     return 'oc_' . uniqid() . '.' . $extension;
 }
 
+function validate($title, $description)
+{
+    $messages = [];
+
+    if (empty($title)) {
+        $messages["title"] = "Missing title";
+    }
+
+    if (empty($description)) {
+        $messages["description"] = "Missing description";
+    }
+
+    return $messages;
+}
+
 function submit_drawing()
 {
     global $pdo;
@@ -56,6 +72,14 @@ function submit_drawing()
         $title = $_POST["title"];
         $description = $_POST["description"];
         $imgDataURL = $_POST["imgURL"];
+
+        // validation
+        $validationMessages = validate($title, $description);
+
+        if (!empty($validationMessages)) {
+            echo json_encode(['success' => false, 'messages' => $validationMessages]);
+            return;
+        }
 
         // convert data url to image and save the image file on the server
         $imgData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imgDataURL));
@@ -161,6 +185,14 @@ function update_drawing()
         $title = $_POST["title"];
         $description = $_POST["description"];
         $imgDataURL = $_POST["imgURL"];
+
+        // validation
+        $validationMessages = validate($title, $description);
+
+        if (!empty($validationMessages)) {
+            echo json_encode(['success' => false, 'messages' => $validationMessages]);
+            return;
+        }
 
         // delete current image file from server
         $currentImg = get_image_path($projectId);

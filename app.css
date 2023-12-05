@@ -10,6 +10,7 @@
     --nav: #BFC8AD;
     --accent1: #90B494;
     --accent2: #718F94;
+    --error: #B64E3E;
     --text: #47485C;
     --subtext: #545775;
     --canvas: #F5F5F5;
@@ -327,7 +328,6 @@ form label{
 
 form input, textarea{
     width: 100%;
-    margin-bottom: 2rem;
     font-family: var(--sub-font);
     font-size: large;
     font-weight: bolder;
@@ -340,6 +340,15 @@ form input, textarea{
 
 textarea{
     resize: vertical;
+}
+
+.error-msg{
+    display: block;
+    font-family: var(--sub-font);
+    font-weight: bolder;
+    color: var(--error);
+    padding-top: 5px;
+    margin-bottom: 1rem;
 }
 
 .submitbtn{
@@ -379,7 +388,7 @@ textarea{
     background-color: var(--accent2);
     color: var(--canvas);
     font-family: var(--sub-font);
-    font-size: xx-large;
+    font-size: x-large;
     line-height: 50px;
     font-weight: bolder;
     text-align: center;
