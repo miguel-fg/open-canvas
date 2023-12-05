@@ -58,7 +58,6 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
             </div>
             <div class="div2">
                 <?php get_tool_ribbon() ?>
-                <button class="save-btn" onclick="openModal()">Save</button>
             </div>
         </div>
         <div class="toast" id="toast">Project saved!</div>
@@ -69,7 +68,13 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
         const projectId = <?php echo json_encode($projectId); ?>
 
         function openNav() {
-            document.querySelector("#sidebar").style.width = "250px";
+            const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            if (screenWidth < 800) {
+                document.querySelector("#sidebar").style.width = "100%";
+            } else {
+                document.querySelector("#sidebar").style.width = "250px";
+            }
         }
 
         function hideNav() {

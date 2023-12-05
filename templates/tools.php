@@ -13,5 +13,6 @@ function get_tool_ribbon()
     echo '<label for="bucket" class="tool-label">' . get_bucket_icon() . '</label>';
     echo '<input type="radio" class="tool" name="selected-tool" id="clear">';
     echo '<label for="clear" class="tool-label">' . get_clear_icon() . '</label>';
+    echo '<button class="save-btn" onclick="openModal()">Save</button>';
     echo '</div>';
 }

@@ -50,7 +50,13 @@ include "./templates/galleryCards.php";
 
     <script>
         function openNav() {
-            document.querySelector("#sidebar").style.width = "250px";
+            const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            if (screenWidth < 800) {
+                document.querySelector("#sidebar").style.width = "100%";
+            } else {
+                document.querySelector("#sidebar").style.width = "250px";
+            }
         }
 
         function hideNav() {
