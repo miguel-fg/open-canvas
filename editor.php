@@ -110,6 +110,14 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
             const title = document.querySelector("#title").value;
             const description = document.querySelector("#description").value;
 
+            // frontend validation 
+            const validationMessages = validate(title, description);
+
+            if (validationMessages.title || validationMessages.description) {
+                clearErrorMessages();
+                displayErrorMessages(validationMessages);
+            }
+
             const formData = new FormData();
             formData.append("title", title);
             formData.append("description", description);
@@ -136,10 +144,24 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
                         closeModal();
                     } else {
                         // failed backend validation
+                        // comment out the following two lines to see frontend validation in action
                         clearErrorMessages();
                         displayErrorMessages(data.messages);
                     }
                 });
+        }
+
+        function validate(title, description) {
+            const messages = {};
+            if (title.trim() === "") {
+                messages.title = "Title cannot be empty";
+            }
+
+            if (description.trim() === "") {
+                messages.description = "Description cannot be empty";
+            }
+
+            return messages;
         }
 
         function clearErrorMessages() {
