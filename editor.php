@@ -111,12 +111,17 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
             const description = document.querySelector("#description").value;
 
             // frontend validation 
+            // comment out the marked section to see backend validation messages
+            // <----
             const validationMessages = validate(title, description);
 
             if (validationMessages.title || validationMessages.description) {
                 clearErrorMessages();
                 displayErrorMessages(validationMessages);
+                return;
             }
+            // <----
+            // end of frontend validation
 
             const formData = new FormData();
             formData.append("title", title);
@@ -144,7 +149,6 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
                         closeModal();
                     } else {
                         // failed backend validation
-                        // comment out the following two lines to see frontend validation in action
                         clearErrorMessages();
                         displayErrorMessages(data.messages);
                     }
