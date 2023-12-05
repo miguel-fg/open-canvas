@@ -47,10 +47,6 @@ include "./templates/galleryCards.php";
             document.querySelector("#sidebar").style.width = "0";
         }
 
-        function editProject(projectId) {
-            console.log("I want to edit this project: ", projectId);
-        }
-
         function sendToast() {
             const toast = document.querySelector("#deleteToast");
 
