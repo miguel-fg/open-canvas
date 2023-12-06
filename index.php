@@ -15,6 +15,7 @@ include "./templates/galleryCards.php";
 </head>
 
 <body>
+    <!-- Nav bar -->
     <div id="sidebar" class="sidebar">
         <button class="closebtn" onclick="hideNav()">
             <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" alt="close menu" style="width: 35px;" />
@@ -24,6 +25,7 @@ include "./templates/galleryCards.php";
         <a href="documentation.html" class="nav-link">Documentation</a>
     </div>
     <div class="content">
+        <!-- Delete confirmation modal -->
         <div class="modal" id="confirm-modal">
             <div class="confirm-content">
                 <h2>Warning</h2>
@@ -40,6 +42,7 @@ include "./templates/galleryCards.php";
         </button>
         <h1>Open Canvas</h1>
         <p>Your Free Space for Art</p>
+        <!-- Gallery view -->
         <div class="gallery-container">
             <div class="gallery-card">
                 <a href="editor.php">New Project</a>
@@ -74,6 +77,7 @@ include "./templates/galleryCards.php";
             }, 3000);
         }
 
+        // Opens editor page with id on the URL
         function editProject(projectId) {
             window.location.href = 'editor.php?id=' + projectId;
         }
@@ -82,13 +86,14 @@ include "./templates/galleryCards.php";
             const modal = document.querySelector("#confirm-modal");
             modal.style.display = "block"
 
-            modal.setAttribute("card-project-id", projectId);
+            modal.setAttribute("card-project-id", projectId); //sets attribute to call from delete function
         }
 
         function cancelDelete() {
             document.querySelector("#confirm-modal").style.display = "none";
         }
 
+        // delete post request
         function deleteConfirmed() {
             document.querySelector("#confirm-modal").style.display = "none";
 

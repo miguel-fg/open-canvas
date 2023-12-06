@@ -8,6 +8,7 @@ define('DBPASS', '');
 $pdo = db_connect();
 
 // function router
+// every post request has an "action" attribute attached to the body to execute the corresponding function
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["action"])) {
         $action = $_POST["action"];
@@ -28,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// database connection
 function db_connect()
 {
     $server = constant("DBHOST");
@@ -44,11 +46,13 @@ function db_connect()
     }
 }
 
+// generates a unique filename to store the images
 function generate_img_filename($extension = "png")
 {
     return 'oc_' . uniqid() . '.' . $extension;
 }
 
+// backend validation
 function validate($title, $description)
 {
     $messages = [];
@@ -94,7 +98,7 @@ function submit_drawing()
 
         $stmt->bindValue(':title', $title);
         $stmt->bindValue(':description', $description);
-        $stmt->bindValue(':path', $filepath);
+        $stmt->bindValue(':path', $filepath); // the path to the image is saved on the database
 
         if ($stmt->execute()) {
             echo json_encode(['success' => true, 'filePath' => $filepath]);
@@ -107,6 +111,7 @@ function submit_drawing()
     }
 }
 
+// retrieves all the information from the table
 function get_drawings()
 {
     global $pdo;
@@ -122,6 +127,7 @@ function get_drawings()
     return $galleryData;
 }
 
+// only retrieves the path with a given ID
 function get_image_path($projectId)
 {
     global $pdo;
@@ -138,6 +144,7 @@ function get_image_path($projectId)
     }
 }
 
+// retrieves title and description with a given ID
 function get_image_info($projectId){
     global $pdo;
 
@@ -160,7 +167,6 @@ function delete_drawing()
         $projId = $_POST["projId"];
 
         //delete image file from server
-
         $projPath = get_image_path($projId);
         if ($projPath) {
             if (file_exists($projPath)) {

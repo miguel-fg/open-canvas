@@ -1,7 +1,7 @@
 <?php
 function get_canvas($projectId)
 {
-
+    // if there's a project id, the background of the canvas will be set to the image
     if ($projectId !== null) {
         $imagePath = get_image_path($projectId);
         $imgsrc = substr($imagePath, 2);

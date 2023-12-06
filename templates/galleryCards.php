@@ -3,7 +3,7 @@ $projects = get_drawings();
 
 function get_cards(){
     global $projects;
-
+    // array is reversed to show most recent projects at the top
     $reversedProjects = array_reverse($projects);
 
     foreach($reversedProjects as $proj){

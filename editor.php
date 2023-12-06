@@ -9,6 +9,7 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
 $projectTitle = null;
 $projectDescription = null;
 
+// gets image info if a project id is found
 if ($projectId !== null) {
     $info = get_image_info($projectId);
 
@@ -29,6 +30,7 @@ if ($projectId !== null) {
 </head>
 
 <body>
+    <!-- Nav bar -->
     <div id="sidebar" class="sidebar">
         <button class="closebtn" onclick="hideNav()">
             <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" alt="close menu" style="width: 35px;" />
@@ -38,6 +40,7 @@ if ($projectId !== null) {
         <a href="documentation.html" class="nav-link">Documentation</a>
     </div>
     <div class="content">
+        <!-- Save form modal -->
         <div class="modal" id="save-modal">
             <div class="save-form">
                 <button class="closeModalbtn" onclick="closeModal()">
@@ -62,6 +65,7 @@ if ($projectId !== null) {
             <span class="menu-text">Menu</span>
         </button>
         <h1>Open Canvas</h1>
+        <!-- User interface -->
         <div class="parent">
             <div class="div1">
                 <?php get_canvas($projectId) ?>
@@ -120,7 +124,7 @@ if ($projectId !== null) {
             e.preventDefault();
 
             const canvas = document.querySelector("#main-canvas");
-            const imgURL = canvas.toDataURL();
+            const imgURL = canvas.toDataURL(); //transforms canvas data into text
 
             const title = document.querySelector("#title").value;
             const description = document.querySelector("#description").value;
@@ -138,6 +142,7 @@ if ($projectId !== null) {
             // <----
             // end of frontend validation
 
+            //FormData is used because the canvas is not part of the form
             const formData = new FormData();
             formData.append("title", title);
             formData.append("description", description);
@@ -169,7 +174,7 @@ if ($projectId !== null) {
                     }
                 });
         }
-
+        // frontend validation function
         function validate(title, description) {
             const messages = {};
             if (title.trim() === "") {
@@ -182,7 +187,7 @@ if ($projectId !== null) {
 
             return messages;
         }
-
+        //validation messages functions can be used with both frontend and backend 
         function clearErrorMessages() {
             document.querySelector("#title-error").innerHTML = "";
             document.querySelector("#description-error").innerHTML = "";
