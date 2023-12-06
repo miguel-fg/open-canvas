@@ -11,25 +11,143 @@
 <body>
     <div id="sidebar" class="sidebar">
         <button class="closebtn" onclick="hideNav()">
-            <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" style="width: 35px;" />
+            <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" alt="burger menu button" title="Menu" style="width: 35px;" />
         </button>
         <a href="index.php" class="nav-link">Home</a>
         <a href="editor.php" class="nav-link">New Project</a>
         <a href="#" onclick="return false;" class="nav-link">Documentation</a>
     </div>
-    <div class="content">
-        <button class="openbtn" onclick="openNav()">
-            <img src="./icons/burger-menu-svgrepo-com.svg" class="tool-icon" style="width: 30px;" />
-        </button>
+    <button class="openbtn" onclick="openNav()">
+        <img src="./icons/burger-menu-svgrepo-com.svg" class="tool-icon" style="width: 30px;" alt="burger menu button"/>
+        <span class="menu-text">Menu</span>
+    </button>
+    <div class="content documentation-content">
         <h1>Open Canvas</h1>
         <p>Your Free Space for Art</p>
-        <h2>This is the Documentation Page</h2>
-        <p>This is where I explain how everything works and stuff</p>
-    </div>
+        <h2>Welcome</h2>
+        <p>Welcome to Open Canvas! My final project for CPSC 2030.</p>
+        <p>This app's editor interace is heavily inspired by the pixel art app Aseprite, while the gallery view was inspired by Procreate.</p>
+        <h2>Instructions</h2>
+        <div class="instructions">
+            <div class="folder-structure">
+                <h3>Folder structure</h3>
+            <div class="folder">/root</div> 
+            ├── <div class="folder">/database</div>
+            │   ├── database.php
+            │   └── <div class="folder">/uploads</div>
+            ├── <div class="folder">/icons</div>  
+            ├── <div class="folder">/images</div>  
+            ├── <div class="folder">/scripts</div>
+            │   └── canvas.js
+            ├── <div class="folder">/templates</div>
+            │   ├── canvas.php
+            │   ├── colourPicker.php  
+            │   ├── galleryCards.php 
+            │   ├── icons.php
+            │   └── tools.php
+            ├── .gitignore
+            ├── app.css
+            ├── documentation.html
+            ├── editor.php 
+            └── index.php  
+            </div>
+            <div class="instructions-content">
+                <h3>Setup</h3>
+                <p>Double check the following before running the project:</p>
+                <ul>
+                    <li>Create a database named <span class="accent">opencanvas</span> on phpMyAdmin</li>
+                    <li>Add a table named <span class="accent">drawings</span> to the database with the following columns:
+                    <ul>
+                        <li><span class="accent">id</span>: int(11) with auto increment enabled</li>
+                        <li><span class="accent">title</span>: varchar(50)</li>
+                        <li><span class="accent">description</span>: varchar(250)</li>
+                        <li><span class="accent">path</span>: varchar(100)</li>
+                    </ul>
+                    </li>
+                    <li>There should be an empty directory named <span class="accent">uploads</span> inside the database folder. Create the directory if necessary.</li>
+                </ul>
+            </div>
+        </div>
+        <h3>Using the app</h3>
+        <p>The sidebar is accessible from the top left corner of the window, by clicking the menu button. <img src="./icons/burger-menu-svgrepo-com.svg" alt="burger menu icon" width="20px"></p>
+        <p>The sidebar will give you access to the two main pages of the app.</p>
+        <h3>Gallery page</h3>
+        <p>
+            This page will add cards, as you save projects to the database. If there are no projects in the database, only the <span class="accent">New Project</span> card will appear on the screen. 
+        </p>
+        <p>If there are projects saved, you will be able to open and edit or delete the files using the <img src="./icons/edit-svgrepo-com.svg" width="20px" alt="edit button icon"> & <img src="./icons/delete-2-svgrepo-com.svg" width="20px" alt="delete button icon"> icons on each card.</p>
+        <h3>Editor page</h3>
+        <p>The file editor provides the basic tools that you would expect from a drawing application:</p>
+        <p>
+            The colour picker, brush, eraser, paint bucket and clear canvas tool are accessible from the right side of the canvas. <br><br>
+            <img src="./icons/brush-svgrepo-com.svg" width="30px" alt="brush tool icon"> <img src="./icons/eraser-svgrepo-com.svg" width="30px" alt="eraser tool icon"> <img src="./icons/paint-bucket-color-colour-svgrepo-com.svg" width="30px" alt="paint bucket tool icon"> <img src="./icons/clear-svgrepo-com.svg" width="30px" alt="clear canvas tool icon">
+        </p>
+        <p>
+            The canvas will not be responsive unless the <span class="accent">brush</span> or <span class="accent">bucket</span> tools are selected.
+        </p>
+        <p>
+            Hit the save button once you feel ready to save your project. This will open the modal and ask you for a title and description for your drawing.
+        </p>
+        <p>
+            NOTE: The app allows saving empty drawings, because most apps allow empty projects.
+        </p>
+        <div class="validation-screens">
+        <h2>Validation</h2>
+        <p>
+            Files with <span class="accent">.php</span> extension cannot be read by HTML validators. 
+        </p>
 
+        <h3>CSS Validation</h3>
+        <img src="./images/valid-css.png" alt="valid css screenshot" width="90%">
+
+        </div>
+        <div class="credits">
+            <h2>Credits</h2>
+            <p>All svg files included in <span class="accent">./icons/</span> were found in <a href="https://www.svgrepo.com" target="_blank">SVG Repo</a>. The original colours were changed to match the app's style</p>
+            <ul>
+                <li>
+                    <img src="./icons/brush-svgrepo-com.svg" width="30px" alt="brush icon"> <a href="https://www.svgrepo.com/svg/522007/brush" target="_blank">Brush SVG Vector</a> by Catalin Fertu, CC Attribution License
+                </li>
+                <li>
+                    <img src="./icons/burger-menu-svgrepo-com.svg" width="30px" alt="burger menu button icon"> <a href="https://www.svgrepo.com/svg/506800/burger-menu">Burger Menu SVG Vector</a> by Salah Elimam, PD License
+                </li>
+                <li>
+                    <img src="./icons/clear-svgrepo-com.svg" width="30px" alt="clear icon"> <a href="https://www.svgrepo.com/svg/354868/clear" target="_blank">Clear SVG Vector</a> by grommet, Apache License
+                </li>
+                <li>
+                    <img src="./icons/close-circle-svgrepo-com.svg" width="30px" alt="close button icon"> <a href="https://www.svgrepo.com/svg/528912/close-circle" target="_blank">Close Circle SVG Vector</a> by Solar Icons, CC Attribution License
+                </li>
+                <li>
+                    <img src="./icons/coffee-svgrepo-com.svg" width="30px" alt="coffee icon"> <a href="https://www.svgrepo.com/svg/510935/coffee" target="_blank">Coffee SVG Vector</a> by krystonschwarze, CC Attribution License
+                </li>
+                <li>
+                    <img src="./icons/delete-2-svgrepo-com.svg" width="30px" alt="delete trash can icon"> <a href="https://www.svgrepo.com/svg/502608/delete-2" target="_blank">Delete 2 SVG Vector</a> by Ananthanath A X Kalaiism, PD License 
+                </li>
+                <li>
+                    <img src="./icons/edit-svgrepo-com.svg" width="30px" alt="edit icon"> <a href="https://www.svgrepo.com/svg/509911/edit" target="_blank">Edit SVG Vector</a> by zest, MIT License 
+                </li>
+                <li>
+                    <img src="./icons/eraser-svgrepo-com.svg" width="30px" alt="eraser icon"> <a href="https://www.svgrepo.com/svg/529569/eraser" target="_blank">Eraser SVG Vector</a> by Solar Icons, CC Attribution License
+                </li>
+                <li>
+                    <img src="./icons/heart-svgrepo-com.svg" width="30px" alt="heart icon"> <a href="https://www.svgrepo.com/svg/532473/heart" target="_blank">Heart SVG Vector</a> by Dazzle UI, CC Attribution License 
+                </li>
+                <li>
+                    <img src="./icons/paint-bucket-color-colour-svgrepo-com.svg" width="30px" alt="paint bucket icon"> <a href="https://www.svgrepo.com/svg/384059/paint-bucket-color-colour" target="_blank">Paint Bucket Color Colour SVG</a> by wishforge.games, CC Attribution License 
+                </li>
+            </ul>
+        </div>
+    </div>
+    <p>Made with <img src="./icons/coffee-svgrepo-com.svg" alt="coffee" width="25px"> & <img src="./icons/heart-svgrepo-com.svg" alt="love" width="25px"> by Miguel.</p>
     <script>
         function openNav() {
-            document.querySelector("#sidebar").style.width = "250px";
+            const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            if (screenWidth < 800) {
+                document.querySelector("#sidebar").style.width = "100%";
+            } else {
+                document.querySelector("#sidebar").style.width = "250px";
+            }
         }
 
         function hideNav() {

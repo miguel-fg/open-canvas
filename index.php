@@ -17,7 +17,7 @@ include "./templates/galleryCards.php";
 <body>
     <div id="sidebar" class="sidebar">
         <button class="closebtn" onclick="hideNav()">
-            <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" style="width: 35px;" />
+            <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" alt="close menu" style="width: 35px;" />
         </button>
         <a href="#" onclick="return false;" class="nav-link">Home</a>
         <a href="editor.php" class="nav-link">New Project</a>
@@ -35,7 +35,8 @@ include "./templates/galleryCards.php";
             </div>
         </div>
         <button class="openbtn" onclick="openNav()">
-            <img src="./icons/burger-menu-svgrepo-com.svg" class="tool-icon" style="width: 30px;" />
+            <img src="./icons/burger-menu-svgrepo-com.svg" class="tool-icon" alt="burger icon menu" style="width: 30px;" />
+            <span class="menu-text">Menu</span>
         </button>
         <h1>Open Canvas</h1>
         <p>Your Free Space for Art</p>

@@ -87,6 +87,10 @@ p {
     background-color: var(--bg);
 }
 
+.menu-text{
+    display: none;
+}
+
 @media screen and (max-width: 800px) {
     .nav-link{
         font-size: xx-large;
@@ -530,5 +534,80 @@ textarea{
 @media screen and (max-width: 550px){
     #colour-preview{
         display: none;
+    }
+}
+
+/************** DOCUMENTATION PAGE STYLES ***************/
+.documentation-content{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.documentation-content p:nth-of-type(n + 2){
+    text-align: left;
+    margin-left: 20px;
+}
+
+.documentation-content h2, .credits h2 {
+    margin-top: 3rem;
+    font-family: var(--main-font);
+    color: var(--text);
+}
+
+.instructions-content{
+    margin-right: auto;
+}
+
+.documentation-content h3, .instructions-content h3, .folder-structure h3, h4 {
+    margin-left: 10px;
+    font-family: var(--main-font);
+    color: var(--text);
+}
+
+.instructions p, .credits p, .validation-screens p{
+    text-align: left;
+    margin-left: 20px;
+}
+
+.folder-structure h3{
+    margin-top: 0;
+}
+
+ul{
+    font-family: var(--sub-font);
+    color: var(--subtext);
+    font-weight: 600;
+}
+
+li{
+    font-size: large;
+    margin-bottom: 5px;
+}
+
+.accent{
+    color: var(--error);
+    font-weight: bolder;
+}
+
+.folder {
+    display: inline-block;
+    font-weight: bolder;
+    width: 16px;
+    height: 16px;
+}
+
+.folder-structure {
+    color: var(--text);
+    font-family: var(--sub-font);
+    font-size: larger;
+    white-space: pre;
+    float: right;
+    margin-right: 100px;
+}
+
+@media screen and (max-width: 600px) {
+    .folder-structure{
+        float: none;
     }
 }

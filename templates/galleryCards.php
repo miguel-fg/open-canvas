@@ -15,11 +15,11 @@ function get_cards(){
         echo '<span>' . $proj['description'] . '</span>';
         echo '<button onclick="editProject(' . $proj['id'] . ')">';
         echo
-        '<img src="./icons/edit-svgrepo-com.svg" class="card-icon" id="edit-btn" style="width: 25px;"/>';
+        '<img src="./icons/edit-svgrepo-com.svg" alt="edit button" class="card-icon" id="edit-btn" style="width: 25px;"/>';
         echo '</button>';
         echo '<button onclick="deleteProject(' . $proj['id'] . ')">';
         echo
-        '<img src="./icons/delete-2-svgrepo-com.svg" class="card-icon" id="delete-btn" style="width: 25px;"/>';
+        '<img src="./icons/delete-2-svgrepo-com.svg" alt="delete button" class="card-icon" id="delete-btn" style="width: 25px;"/>';
         echo '</button>';
         echo '</div>';
     }

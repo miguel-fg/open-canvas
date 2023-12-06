@@ -22,7 +22,7 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
 <body>
     <div id="sidebar" class="sidebar">
         <button class="closebtn" onclick="hideNav()">
-            <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" style="width: 35px;" />
+            <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" alt="close menu" style="width: 35px;" />
         </button>
         <a href="index.php" class="nav-link">Home</a>
         <a href="#" onclick="return false;" class="nav-link">New Project</a>
@@ -32,7 +32,7 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
         <div class="modal" id="save-modal">
             <div class="save-form">
                 <button class="closeModalbtn" onclick="closeModal()">
-                    <img src="./icons/close-circle-svgrepo-com.svg" class="tool-icon" style="width: 35px;" />
+                    <img src="./icons/close-circle-svgrepo-com.svg" alt="close modal" class="tool-icon" style="width: 35px;" />
                 </button>
                 <div class="form-content">
                     <h2>Save Project</h2>
@@ -49,7 +49,8 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
             </div>
         </div>
         <button class="openbtn" onclick="openNav()">
-            <img src="./icons/burger-menu-svgrepo-com.svg" class="tool-icon" style="width: 30px;" />
+            <img src="./icons/burger-menu-svgrepo-com.svg" class="tool-icon" alt="burger icon menu" style="width: 30px;" />
+            <span class="menu-text">Menu</span>
         </button>
         <h1>Open Canvas</h1>
         <div class="parent">
