@@ -6,6 +6,15 @@ include "./templates/colourPicker.php";
 include "./database/database.php";
 
 $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
+$projectTitle = null;
+$projectDescription = null;
+
+if ($projectId !== null) {
+    $info = get_image_info($projectId);
+
+    $projectTitle = $info["title"];
+    $projectDescription = $info["description"];
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,10 +47,10 @@ $projectId = isset($_GET["id"]) ? $_GET["id"] : null;
                     <h2>Save Project</h2>
                     <form id="submit-form" method="post">
                         <label for="title">Title: </label><br>
-                        <input type="text" name="title" id="title"><br>
+                        <input type="text" name="title" id="title" value="<?php echo htmlspecialchars($projectTitle) ?>"><br>
                         <span class="error-msg" id="title-error"></span><br>
                         <label for="description">Description: </label><br>
-                        <textarea name="description" id="description" rows="4"></textarea><br>
+                        <textarea name="description" id="description" rows="4"><?php echo htmlspecialchars($projectDescription) ?></textarea><br>
                         <span class="error-msg" id="description-error"></span><br>
                         <button type="submit" class="submitbtn">Submit</button>
                     </form>

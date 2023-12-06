@@ -138,6 +138,20 @@ function get_image_path($projectId)
     }
 }
 
+function get_image_info($projectId){
+    global $pdo;
+
+    $sql = 'SELECT title, description FROM drawings WHERE id = :id';
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->bindValue(':id', $projectId);
+    if($stmt->execute()){
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+}
+
 function delete_drawing()
 {
     global $pdo;
